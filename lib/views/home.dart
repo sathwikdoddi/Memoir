@@ -120,14 +120,17 @@ class MemoirsCard extends StatelessWidget {
       height: 200,
       child: Stack(
         children: <Widget>[
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10), 
-            child: imgUrl != null ? Image.network(
-              imgUrl, 
-              width: MediaQuery.of(context).size.width,
-              fit: BoxFit.cover
-            )
-            : Container()
+          Hero(
+            tag: 'transition$imgUrl',
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10), 
+              child: imgUrl != null ? Image.network(
+                imgUrl, 
+                width: MediaQuery.of(context).size.width,
+                fit: BoxFit.cover
+              )
+              : Container()
+            ),
           ),
           Container(
             height: 200,

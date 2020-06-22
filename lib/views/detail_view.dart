@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'home.dart';
 
 class DetailMemoirView extends StatelessWidget {
 
@@ -14,9 +15,12 @@ class DetailMemoirView extends StatelessWidget {
       SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            ClipRRect(
-              child: Image.network(cover),
-              borderRadius: BorderRadius.only(bottomLeft: const Radius.circular(50)),
+            Hero(
+              tag: 'transition$cover',
+              child: ClipRRect(
+                child: Image.network(cover),
+                borderRadius: BorderRadius.only(bottomLeft: const Radius.circular(50)),
+              ),
             ),
             SizedBox(height: 7),
             SizedBox(height: 15),
