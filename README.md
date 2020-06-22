@@ -1,6 +1,7 @@
 # Memoir
 
 A new Flutter project.
+Upload and caption your favorite memories with Memoir! Memories such as a babies first steps, to travelling to France can be documented and viewed with the Memoir App. There will be a calendar view, a list view, and you can filter memories based on tags you provide!
 
 ## Getting Started
 
