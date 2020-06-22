@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
 
 class DetailMemoirView extends StatelessWidget {
 
@@ -22,8 +21,7 @@ class DetailMemoirView extends StatelessWidget {
                 borderRadius: BorderRadius.only(bottomLeft: const Radius.circular(50)),
               ),
             ),
-            SizedBox(height: 7),
-            SizedBox(height: 15),
+            SizedBox (height: 22),
             Text (
               title,
               style: TextStyle(
@@ -56,6 +54,17 @@ class DetailMemoirView extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(height: 20,),
+            GestureDetector(
+              child: FloatingActionButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  "Back",
+                )
+              )
+            )
           ],
         ),
       ),
