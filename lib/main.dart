@@ -23,6 +23,7 @@ class Splash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[700],
       body: SafeArea(
         child: Container(
           width: double.infinity,
@@ -42,7 +43,7 @@ class Splash extends StatelessWidget {
                   Text("This is Memoir. Where you can caption and upload your favorite memories", 
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.grey[600],
+                    color: Colors.grey[300],
                     fontSize: 16,
                   ),),
                 ]
@@ -90,6 +91,7 @@ class Splash extends StatelessWidget {
                       child: Text("Login", style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 20,
+                        color: Colors.black
                       ))
                     ),
                   ),
@@ -127,6 +129,7 @@ class Splash extends StatelessWidget {
                       child: Text("Sign up", style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 20,
+                        color: Colors.black
                       ))
                     ),
                   ),

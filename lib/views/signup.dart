@@ -16,15 +16,16 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[700],
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 0,
         brightness: Brightness.light,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {Navigator.pop(context);},
           icon: Icon(
-            Icons.arrow_back_ios, size: 20, color: Colors.black
+            Icons.arrow_back_ios, size: 20, color: Colors.white
           )
         ),
       ),
@@ -52,7 +53,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         "Create a Memoir Account",
                         style: TextStyle(
                           fontSize: 15,
-                          color: Colors.grey[700]
+                          color: Colors.grey[200]
                         )
                       )
                     ],
@@ -150,6 +151,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           }).catchError((e) {
                             print(e);
                           });
+                          Navigator.of(context).pushReplacementNamed('/home');
                         },
                         color: Colors.blueAccent,
                         elevation: 0,

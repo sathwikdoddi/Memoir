@@ -15,15 +15,16 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[700],
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 0,
         brightness: Brightness.light,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {Navigator.pop(context);},
           icon: Icon(
-            Icons.arrow_back_ios, size: 20, color: Colors.black
+            Icons.arrow_back_ios, size: 20, color: Colors.white
           )
         ),
       ),

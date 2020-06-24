@@ -76,6 +76,7 @@ class _HomePageState extends State<HomePage> {
               color: Colors.grey[700]
             ),
           ),
+          SizedBox(width: 45),
         ]),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
