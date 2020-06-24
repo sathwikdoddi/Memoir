@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:memoir_mu/services/users.dart';
 import 'package:memoir_mu/views/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
+  @override
+  _SignUpPageState createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+
+  String _email;
+  String _password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,9 +61,70 @@ class SignUpPage extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 40),
                     child: Column(
                       children: <Widget>[
-                        makeInput(label: "Email"),
-                        makeInput(label: "Password", obscureText: true),
-                        makeInput(label: "Confirm Password", obscureText: true)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Email",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black87,
+                              )
+                            ),
+                            SizedBox(height: 5),
+                            TextField(
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey[400])
+                                ),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey[400])
+                                )
+                              ),
+                              onChanged: (value) {
+                                setState(() {
+                                  _email = value;
+                                });
+                              }
+                            ),
+                            SizedBox(height: 30)
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Password",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black87,
+                              )
+                            ),
+                            SizedBox(height: 5),
+                            TextField(
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey[400])
+                                ),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey[400])
+                                )
+                              ),
+                              onChanged: (value) {
+                                setState(() {
+                                  _password = value;
+                                });
+                              }
+                            ),
+                            SizedBox(height: 30)
+                          ],
+                        ),
                       ],
                     )
                   ),
@@ -72,7 +144,13 @@ class SignUpPage extends StatelessWidget {
                       child: MaterialButton(
                         minWidth: double.infinity,
                         height: 60,
-                        onPressed: () {},
+                        onPressed: () {
+                          FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email, password: _password).then((signedInUser) {
+                            UserManagement().storeNewUser(signedInUser, context);
+                          }).catchError((e) {
+                            print(e);
+                          });
+                        },
                         color: Colors.blueAccent,
                         elevation: 0,
                         shape: RoundedRectangleBorder(
@@ -122,7 +200,7 @@ class SignUpPage extends StatelessWidget {
     );
   }
 
-  Widget makeInput({label, obscureText = false}) {
+  Widget makeInput({label, obscureText = false, changed}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -146,6 +224,11 @@ class SignUpPage extends StatelessWidget {
               borderSide: BorderSide(color: Colors.grey[400])
             )
           ),
+          onChanged: (value) {
+            setState(() {
+              changed = value;
+            });
+          }
         ),
         SizedBox(height: 30)
       ],
