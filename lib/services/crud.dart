@@ -2,12 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CrudMethods {
 
-  getData() async {
-    return await Firestore.instance.collection("memoirs").snapshots(); 
+  getData({user}) async {
+    return await Firestore.instance.collection(user).snapshots(); 
   }
 
-  Future<void> addData (memoirData) async {
-    Firestore.instance.collection("memoirs").add(memoirData).catchError((e) {
+  Future<void> addData (memoirData, user) async {
+    Firestore.instance.collection(user).add(memoirData).catchError((e) {
       print(e);
     });
   }

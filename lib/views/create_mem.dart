@@ -6,17 +6,26 @@ import 'package:memoir_mu/services/crud.dart';
 import 'package:random_string/random_string.dart';
 
 class CreateMemoir extends StatefulWidget {
+
+  final String user;
+
+  const CreateMemoir({Key key, this.user}) : super(key: key);
+
   @override
-  _CreateMemoirState createState() => _CreateMemoirState();
+  _CreateMemoirState createState() => _CreateMemoirState(user);
 }
 
 class _CreateMemoirState extends State<CreateMemoir> {
+
+  final String user;
 
   String authorName, title, description;
   CrudMethods crudMethods = new CrudMethods();
 
   File selectedImage;
   bool _isLoading = false;
+
+  _CreateMemoirState(this.user);
 
   Future getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
@@ -49,7 +58,7 @@ class _CreateMemoirState extends State<CreateMemoir> {
         "description": description
       };
 
-      crudMethods.addData(memoirMap).then((result) {
+      crudMethods.addData(memoirMap, user).then((result) {
         Navigator.pop(context);
       });
 

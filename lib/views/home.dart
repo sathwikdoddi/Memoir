@@ -6,13 +6,22 @@ import 'package:memoir_mu/views/detail_view.dart';
 import 'create_mem.dart';
 
 class HomePage extends StatefulWidget {
+
+  final String user;
+
+  const HomePage({Key key, this.user}) : super(key: key);
+
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState(user);
 }
 
 class _HomePageState extends State<HomePage> {
   CrudMethods crudMethods = new CrudMethods();
   Stream memoirsStream;
+
+  final String user;
+
+  _HomePageState(this.user);
 
   Widget MemoirsList() {
     return SingleChildScrollView(
@@ -49,8 +58,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
-    crudMethods.getData().then((result) {
+    crudMethods.getData(user: user).then((result) {
       memoirsStream = result;
     });
   }
@@ -89,7 +97,7 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
           FloatingActionButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => CreateMemoir()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => CreateMemoir(user: user,)));
             },
             child: Icon(Icons.note_add, color: Colors.white70),
             backgroundColor: Colors.grey[600],

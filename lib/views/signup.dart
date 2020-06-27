@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:memoir_mu/services/users.dart';
+import 'package:memoir_mu/views/home.dart';
 import 'package:memoir_mu/views/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -151,7 +152,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           }).catchError((e) {
                             print(e);
                           });
-                          Navigator.of(context).pushReplacementNamed('/home');
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(user: _email)));
                         },
                         color: Colors.blueAccent,
                         elevation: 0,

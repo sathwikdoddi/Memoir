@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:memoir_mu/views/home.dart';
 import 'package:memoir_mu/views/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -146,7 +147,7 @@ class _LoginPageState extends State<LoginPage> {
                         height: 60,
                         onPressed: () {
                           FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password).then((user) {
-                            Navigator.of(context).pushReplacementNamed('/home');
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(user: _email)));
                           }).catchError((e) {
                             print(e);
                           });
