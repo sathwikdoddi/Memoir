@@ -29,7 +29,8 @@
 .pub-cache/
 .pub/
 /build/
-Icon\r
+Icon
+Icon?
 
 # Web related
 lib/generated_plugin_registrant.dart
