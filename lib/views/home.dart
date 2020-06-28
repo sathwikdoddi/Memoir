@@ -31,6 +31,7 @@ class _HomePageState extends State<HomePage> {
                 StreamBuilder(
                   stream: memoirsStream,
                   builder: (context, snapshot) {
+                    if(snapshot.data == null) return CircularProgressIndicator();
                     return ListView.builder(
                         padding: EdgeInsets.symmetric(horizontal: 16),
                         itemCount: snapshot.data.documents.length,
