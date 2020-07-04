@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:memoir_mu/services/crud.dart';
+import 'package:memoir_mu/views/calendar.dart';
 import 'package:memoir_mu/views/detail_view.dart';
 
 import 'create_mem.dart';
@@ -90,7 +91,19 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
       ),
-      body: SingleChildScrollView(child: MemoirsList()),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget> [
+            MemoirsList(),
+            GestureDetector(
+              onTap:() {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => CalendarView()));
+              },
+              child: Text("Calendar View")
+            )
+          ]
+        ),
+      ),
       floatingActionButton: Container(
         padding: EdgeInsets.symmetric(vertical: 18),
         child: Row(

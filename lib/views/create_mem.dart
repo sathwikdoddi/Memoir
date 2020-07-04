@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:memoir_mu/model/event.dart';
 import 'package:memoir_mu/services/crud.dart';
 import 'package:random_string/random_string.dart';
 
@@ -18,6 +19,7 @@ class CreateMemoir extends StatefulWidget {
 class _CreateMemoirState extends State<CreateMemoir> {
 
   final String user;
+  DateTime _eventDate;
 
   String authorName, title, description;
   CrudMethods crudMethods = new CrudMethods();
@@ -33,6 +35,11 @@ class _CreateMemoirState extends State<CreateMemoir> {
     setState(() {
       selectedImage = image;
     });
+  }
+
+  void initState() {
+    super.initState();
+    _eventDate = DateTime.now();
   }
 
   uploadMemoir() async {
@@ -51,16 +58,25 @@ class _CreateMemoirState extends State<CreateMemoir> {
 
       var downloadUrl = await (await task.onComplete).ref.getDownloadURL();
 
-      Map<String, String> memoirMap = {
+      Map<String, dynamic> memoirMap = {
         "imgURL": downloadUrl,
         "authorName": authorName,
         "title": title,
-        "description": description
+        "description": description,
+        "date": _eventDate
       };
 
-      crudMethods.addData(memoirMap, user).then((result) {
-        Navigator.pop(context);
-      });
+      // crudMethods.addData(memoirMap, user).then((result) {
+      //   Navigator.pop(context);
+      // });
+
+      await eventDBS.createItem(EventModel(
+        title: title,
+        authorName: authorName,
+        imgURL: downloadUrl,
+        description: description,
+        date: _eventDate
+      ));
 
     } else {}
   }
@@ -159,6 +175,18 @@ class _CreateMemoirState extends State<CreateMemoir> {
                     decoration: InputDecoration(hintText: "What happened?"),
                     onChanged: (val){
                       description = val;
+                    },
+                  ),
+                  ListTile(
+                    title: Text("When? (YYYY-MM-DD)"),
+                    subtitle: Text("${_eventDate.year} - ${_eventDate.month} - ${_eventDate.day}"),
+                    onTap: ()async{
+                      DateTime picked = await showDatePicker(context: context, initialDate: _eventDate, firstDate: DateTime(_eventDate.year-5), lastDate: DateTime(_eventDate.year+5));
+                      if(picked != null) {
+                        setState(() {
+                          _eventDate = picked;
+                        });
+                      }
                     },
                   ),
                 ],
