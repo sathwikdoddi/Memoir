@@ -152,7 +152,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           }).catchError((e) {
                             print(e);
                           });
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(user: _email)));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(user: _email)));
                         },
                         color: Colors.blueAccent,
                         elevation: 0,
@@ -176,7 +176,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       Text("Already have an account? ", style: TextStyle(fontSize: 18)),
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                               builder: (context) => LoginPage()

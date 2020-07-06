@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:memoir_mu/constant/bottomNav.dart';
 import 'package:memoir_mu/model/event.dart';
 import 'package:memoir_mu/services/crud.dart';
-import 'package:memoir_mu/views/detail_view.dart';
+import 'package:memoir_mu/views/home.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarView extends StatefulWidget {
+  final String user;
+
+  const CalendarView({Key key, this.user}) : super(key: key);
   @override
-  _CalendarViewState createState() => _CalendarViewState();
+  _CalendarViewState createState() => _CalendarViewState(user);
   }
 
 class _CalendarViewState extends State<CalendarView> {
+  final String user;
   CalendarController _controller;
   Map<DateTime, List<dynamic>> _events;
   List<dynamic> _selectedEvents;
+
+  _CalendarViewState(this.user);
 
   void initState() {
     super.initState();
@@ -34,6 +41,7 @@ class _CalendarViewState extends State<CalendarView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavBar(user: user),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -53,7 +61,6 @@ class _CalendarViewState extends State<CalendarView> {
               color: Colors.grey[700]
             ),
           ),
-          SizedBox(width: 50,)
         ],),
       ),
       body: StreamBuilder<List<EventModel>>(
@@ -102,17 +109,23 @@ class _CalendarViewState extends State<CalendarView> {
                         )),
                   ),
                 ),
-                ... _selectedEvents.map((event) => ListTile(
-                  title: Text(event.title),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DetailMemoirView(authorName: event.authorName, description: event.description, cover: event.imgURL, title: event.title)
-                      )
-                    );
-                  }
-                ))
+                // ... _selectedEvents.map((event) => ListTile(
+                //   title: Text(event.title),
+                //   onTap: () {
+                //     Navigator.push(
+                //       context,
+                //       MaterialPageRoute(
+                //         builder: (context) => DetailMemoirView(authorName: event.authorName, description: event.description, cover: event.imgURL, title: event.title)
+                //       )
+                //     );
+                //   }
+                // ))
+              ..._selectedEvents.map((event) => MemoirsCard(
+                title: event.title,
+                description: event.description,
+                authorName: event.authorName,
+                imgUrl: event.imgURL,
+              ))
               ]
             )
           );

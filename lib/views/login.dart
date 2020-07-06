@@ -147,7 +147,7 @@ class _LoginPageState extends State<LoginPage> {
                         height: 60,
                         onPressed: () {
                           FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password).then((user) {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(user: _email)));
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(user: _email)));
                           }).catchError((e) {
                             print(e);
                           });
@@ -174,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
                       Text("Dont have an account? ", style: TextStyle(fontSize: 18)),
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                               builder: (context) => SignUpPage()

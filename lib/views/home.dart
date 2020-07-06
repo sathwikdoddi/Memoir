@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:memoir_mu/constant/bottomNav.dart';
 import 'package:memoir_mu/services/crud.dart';
 import 'package:memoir_mu/views/calendar.dart';
 import 'package:memoir_mu/views/detail_view.dart';
@@ -69,6 +70,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavBar(user: user,),
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -86,7 +88,6 @@ class _HomePageState extends State<HomePage> {
               color: Colors.grey[700]
             ),
           ),
-          SizedBox(width: 45),
         ]),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
@@ -95,12 +96,6 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: <Widget> [
             MemoirsList(),
-            GestureDetector(
-              onTap:() {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => CalendarView()));
-              },
-              child: Text("Calendar View")
-            )
           ]
         ),
       ),
@@ -139,7 +134,7 @@ class MemoirsCard extends StatelessWidget {
         );
       },
     child: Container(
-      margin: EdgeInsets.only(bottom: 20),
+      margin: EdgeInsets.only(bottom: 10, top: 10),
       height: 200,
       child: Stack(
         children: <Widget>[
