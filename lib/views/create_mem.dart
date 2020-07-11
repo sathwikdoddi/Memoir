@@ -58,13 +58,13 @@ class _CreateMemoirState extends State<CreateMemoir> {
 
       var downloadUrl = await (await task.onComplete).ref.getDownloadURL();
 
-      Map<String, dynamic> memoirMap = {
-        "imgURL": downloadUrl,
-        "authorName": authorName,
-        "title": title,
-        "description": description,
-        "date": _eventDate
-      };
+      // Map<String, dynamic> memoirMap = {
+      //   "imgURL": downloadUrl,
+      //   "authorName": authorName,
+      //   "title": title,
+      //   "description": description,
+      //   "date": _eventDate
+      // };
 
       // crudMethods.addData(memoirMap, user).then((result) {
       //   Navigator.pop(context);
@@ -76,9 +76,17 @@ class _CreateMemoirState extends State<CreateMemoir> {
         imgURL: downloadUrl,
         description: description,
         date: _eventDate
-      ));
+      )).then((result) => Navigator.pop(context));
 
-    } else {}
+    } else {
+      await eventDBS.createItem(EventModel(
+        title: title,
+        authorName: authorName,
+        imgURL: null,
+        description: description,
+        date: _eventDate
+      )).then((result) => Navigator.pop(context));
+    }
   }
 
 
